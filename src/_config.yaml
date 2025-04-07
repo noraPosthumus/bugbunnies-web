@@ -1,0 +1,10 @@
+permalink:  /:categories/:title
+collections:
+  team_members:
+    sort_by:  name
+defaults:
+  -
+    scope:
+      path: ""
+    values:
+      layout: "default"
