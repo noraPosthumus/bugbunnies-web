@@ -11,3 +11,4 @@ defaults:
       layout: "default"
 sass:
   style: compressed
+  sourcemap: never
