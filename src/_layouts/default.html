@@ -6,9 +6,11 @@
     <title>{{ page.title }}</title>
 </head>
 <body>
+    {% include header.html %}
     <div class="main-content-container" rel="router-outlet">
         {{ content }}
     </div>
+    {% include footer.html %}
 </body>
 <link rel="stylesheet" href="/style.css">
 </html>

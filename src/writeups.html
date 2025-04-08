@@ -1,0 +1,19 @@
+---
+---
+{% assign events = site.writeups | map: "event" | uniq | sort %}
+<div class="accordion">
+    {% for event in events %}
+        <button class="accordion__toggle">{{ event }}</button>
+        <div class="accordion__body">
+            {% for writeup in site.writeups %}
+                {% if writeup.event == event %}
+                    <div>
+                        <a href="{{event | downcase}}/{{writeup.title | downcase}}">
+                            <h3>{{writeup.title}}</h3>
+                        </a>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endfor %}
+</div>

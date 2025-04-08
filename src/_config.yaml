@@ -3,6 +3,9 @@ permalink:  /:categories/:title
 collections:
   team_members:
     sort_by:  name
+  writeups:
+    sort_by: date
+    output: true
 defaults:
   -
     scope:
