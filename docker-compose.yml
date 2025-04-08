@@ -9,4 +9,5 @@ services:
       - "4000:4000"
     volumes:
       - ./src:/srv/jekyll
+      - ./dist:/srv/dist
     working_dir: /srv/jekyll

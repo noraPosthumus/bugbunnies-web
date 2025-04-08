@@ -1,0 +1,5 @@
+@use 'themes' as themes;
+
+.card {
+    background-color: themes.themed('background');
+}

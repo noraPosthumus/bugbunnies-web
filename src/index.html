@@ -1,3 +1,15 @@
 ---
 ---
-Hello World
+
+<div id="team-member-list" class="flex-container flex-container--horizontal">
+    {% for team_member in site.team_members %}
+        <div class="card">
+            <h2 class="card__tilte">
+                {{team_member.name}}
+            </h2>
+            <p class="card__content">
+                {{team_member.content}}
+            </p>
+        </div>
+    {% endfor %}
+</div>
