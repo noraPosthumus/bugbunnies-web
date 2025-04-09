@@ -51,6 +51,7 @@ function handleLoad() {
             const details = target.closest('details');
             if (details)
                 details.open = true;
+            target.scrollIntoView();
         }
     }
 }

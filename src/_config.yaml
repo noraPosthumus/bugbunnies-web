@@ -18,6 +18,7 @@ defaults:
       type: writeups
     values:
       layout: "writeup"
+      excerpt_separator: "```"
 sass:
   style: compressed
   sourcemap: never

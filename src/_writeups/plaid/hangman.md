@@ -3,7 +3,8 @@ title: "Hangman"
 author: w1zardess
 tags: ["misc"]
 ---
-# Hangman
+
+Hello, this is an example **Writeup**.
 
 {{ page.categories }}
 ```py
