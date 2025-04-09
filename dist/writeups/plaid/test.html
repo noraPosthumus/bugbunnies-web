@@ -4,14 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/style.css">
-    <title>{{ page.title }}</title>
+    <title>Test</title>
 </head>
 <body>
-    {% include header.html %}
+    <header>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/writeups">Writeups</a>
+    </nav>
+</header>
+
     <main>
-        {{ content }}
+        
+
     </main>
-    {% include footer.html %}
+    <footer>
+    © - BugBunnies
+</footer>
+
 </body>
-<script src="{{ '/assets/js/script.js' | relative_url }}"></script>
+<script src="/assets/js/script.js"></script>
 </html>

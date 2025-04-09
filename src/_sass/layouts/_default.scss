@@ -1,0 +1,26 @@
+body {
+    position: absolute;
+    margin: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: [left] 10vw [center] 80vw [right] 10vw;
+    grid-template-rows: [header] 40px [content] auto [footer] 20px;
+}
+
+header {
+    grid-row: header;
+    grid-column: left / right;
+}
+
+footer {
+    grid-row: footer;
+    grid-column: left / right;
+}
+
+main {
+    grid-row: content;
+    grid-column: center;
+}

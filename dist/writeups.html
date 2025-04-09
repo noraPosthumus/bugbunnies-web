@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
     <title></title>
 </head>
 <body>
@@ -13,30 +14,65 @@
     </nav>
 </header>
 
-    <div class="main-content-container" rel="router-outlet">
+    <main>
         
 <div class="accordion">
     
-        <button class="accordion__toggle">plaid</button>
-        <div class="accordion__body">
-            
+        <details class="accordion__element" id="plaid">
+            <summary class="accordion__toggle js_accordion__toggle">
+                plaid
+            </summary>
+            <div class="accordion__body">
                 
-                    <div>
-                        <a href="plaid/hangman">
-                            <h3>Hangman</h3>
-                        </a>
-                    </div>
+                    
+                        <div>
+                            <a href="plaid/hangman">
+                                <h3>Hangman</h3>
+                            </a>
+                        </div>
+                    
                 
-            
-        </div>
+                    
+                        <div>
+                            <a href="plaid/test">
+                                <h3>Test</h3>
+                            </a>
+                        </div>
+                    
+                
+                    
+                
+            </div>
+        </details>
+    
+        <details class="accordion__element" id="pwny">
+            <summary class="accordion__toggle js_accordion__toggle">
+                pwny
+            </summary>
+            <div class="accordion__body">
+                
+                    
+                
+                    
+                
+                    
+                        <div>
+                            <a href="pwny/other">
+                                <h3>Other</h3>
+                            </a>
+                        </div>
+                    
+                
+            </div>
+        </details>
     
 </div>
 
-    </div>
+    </main>
     <footer>
     © - BugBunnies
 </footer>
 
 </body>
-<link rel="stylesheet" href="/style.css">
+<script src="/assets/js/script.js"></script>
 </html>
