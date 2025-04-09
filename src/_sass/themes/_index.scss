@@ -1,7 +1,7 @@
 @use 'themes/snowshoe';
 @use 'sass:meta';
-@use 'packages/komplett/themed' as *;
-@forward 'packages/komplett/themed';
+@use 'third_party/komplett/themed' as *;
+@forward 'third_party/komplett/themed';
 
 $theme-map: meta.module-variables('snowshoe');
 
