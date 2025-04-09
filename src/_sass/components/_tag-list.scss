@@ -1,0 +1,12 @@
+@use 'themes' as themes;
+
+.tag-list {
+    list-style: none;
+
+    & .tag {
+        border-radius: 15%;
+        padding: 2px 5px;
+        line-height: 1rem;
+        background-color: themes.themed(primary-color);
+    }
+}

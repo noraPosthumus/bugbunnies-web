@@ -7,18 +7,27 @@
             <summary class="accordion__toggle js_accordion__toggle">
                 {{ event }}
             </summary>
-            <div class="accordion__body">
-                {% for writeup in site.writeups %}
+            <table class="accordion__body">
+                <tbody>
+                    {% for writeup in site.writeups %}
                     {% if writeup.event == event %}
-                        <div>
-                            <a href="{{ writeup.url }}">
-                                <h3>{{writeup.title}}</h3>
-                            </a>
-                            <p>{{ writeup.excerpt | markdownify | strip_html | truncatewords:50 }}</p>
-                        </div>
+                        <tr>
+                            <th scope="row"><a href="{{ writeup.url }}">{{ writeup.title }}</a></th>
+                            <td>
+                                <p>{{ writeup.excerpt | markdownify | strip_html | truncatewords:50 }}</p>
+                            </td>
+                            <td>
+                                {% for tag in writeup.tags %}
+                                    <ul class="tag-list">
+                                        <li class="tag">{{ tag }}</li>
+                                    </ul>
+                                {% endfor %}
+                            </td>
+                        </tr>
                     {% endif %}
-                {% endfor %}
-            </div>
+                    {% endfor %}
+                </tbody>
+            </table>
         </details>
     {% endfor %}
 </div>

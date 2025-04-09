@@ -1,8 +1,7 @@
 ---
 ---
+@use 'third_party/frontend-layers/light-reset';
 @use 'themes';
-@use 'components/flex-container';
-@use 'components/card';
-@use 'components/header';
+@use 'components';
 @use 'layouts';
 @use 'third_party/pygments/monokai.css'
