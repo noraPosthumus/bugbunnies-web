@@ -1,6 +1,7 @@
 ---
 title: "Hangman"
 author: w1zardess
+tags: ["misc"]
 ---
 # Hangman
 

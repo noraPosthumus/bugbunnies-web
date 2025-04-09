@@ -1,0 +1,19 @@
+---
+layout: default
+---
+<button id="js_button-back">Back to overview</button>
+<article>
+    <div class="article-metadata">
+        <p>
+            Published on <time datetime="{{ page.date }}"> {{ page.date | date: "%B %-d, %Y" }} </time>
+            by <address>{{ page.author }}</address>
+        </p>
+        <p>Tags: </p>
+        <ul class="tag-list">
+            {% for tag in page.tags %}
+                <li class="tag">{{ tag }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {{ content }}
+</article>

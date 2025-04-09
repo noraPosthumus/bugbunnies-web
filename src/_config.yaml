@@ -12,6 +12,11 @@ defaults:
       path: ""
     values:
       layout: "default"
+    scope:
+      path: ""
+      type: writeups
+    values:
+      layout: "writeup"
 sass:
   style: compressed
   sourcemap: never
