@@ -11,7 +11,7 @@
                 {% for writeup in site.writeups %}
                     {% if writeup.event == event %}
                         <div>
-                            <a href="{{event | downcase}}/{{writeup.title | downcase}}">
+                            <a href="{{ writeup.url }}">
                                 <h3>{{writeup.title}}</h3>
                             </a>
                         </div>
