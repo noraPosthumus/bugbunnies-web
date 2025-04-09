@@ -12,6 +12,7 @@ defaults:
       path: ""
     values:
       layout: "default"
+      author: "BugBunnies"
   -
     scope:
       type: writeups
