@@ -8,5 +8,6 @@
         padding: 2px 5px;
         line-height: 1rem;
         background-color: themes.themed(primary-color);
+        max-width: min-content;
     }
 }

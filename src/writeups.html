@@ -1,9 +1,12 @@
 ---
 ---
 {% assign events = site.writeups | map: "event" | uniq | sort %}
+<search>
+    <input type="search" name="searchbar" id="js_writeup-search">
+</search>
 <div class="accordion">
     {% for event in events %}
-        <details class="accordion__element" id="{{ event }}">
+        <details class="accordion__element js_searchable" id="{{ event }}">
             <summary class="accordion__toggle js_accordion__toggle">
                 {{ event }}
             </summary>
@@ -11,7 +14,7 @@
                 <tbody>
                     {% for writeup in site.writeups %}
                     {% if writeup.event == event %}
-                        <tr>
+                        <tr class="js_searchable">
                             <th scope="row"><a href="{{ writeup.url }}">{{ writeup.title }}</a></th>
                             <td>
                                 <p>{{ writeup.excerpt | markdownify | strip_html | truncatewords:50 }}</p>

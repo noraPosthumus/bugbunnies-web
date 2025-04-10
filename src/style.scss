@@ -4,4 +4,8 @@
 @use 'themes';
 @use 'components';
 @use 'layouts';
-@use 'third_party/pygments/monokai.css'
+@use 'third_party/pygments/monokai.css';
+
+.js_not-in-query {
+    display: none !important;
+}
