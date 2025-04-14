@@ -19,6 +19,14 @@ defaults:
     values:
       layout: "writeup"
       excerpt_separator: "```"
+  -
+    scope:
+      type: team_members
+    values:
+      pronouns: 
+        nominative: they
+        accusative: them
+        genetive: their
 sass:
   style: compressed
   sourcemap: never

@@ -1,52 +1,59 @@
 @use 'themes' as themes;
+@use 'third_party/google/fonts' as fonts;
+
+:root {
+    @include fonts.monda-regular;
+}
 
 body {
+    width: 100%;
+    height: 100%;
+
     display: grid;
-    grid-template-columns: [left] 10vw [center] 80vw [right] 10vw;
-    grid-template-rows: [header] 40px [content] auto [footer] 20px;
-    font-family: "Ubuntu", sans-serif;
+    grid-template-columns: [left-start] 10vw [left-end center-start] 80vw [center-end right-start] 10vw [right-end];
+    grid-template-rows: [header-start] 40px [header-end content-start] auto [content-end footer-start] 1.8rem [footer-end];
+    background-color: themes.themed(grey-200);
 }
 
 header {
-    grid-row: header;
-    grid-column: left / right;
+    grid-row: header-start / header-end;
+    grid-column: left-start / right-end;
+    background-color: themes.themed(grey-100);
+
+    height: 70px;
+    display: grid;
+    grid-template-columns: auto 80px auto;
+    padding: 0 40px;
+
+    & nav {
+        @include fonts.share-tech-mono-regular;
+
+        display: flex;
+        gap: 30px;
+        align-items: center;
+
+        font-size: 1.2rem;
+    
+        a {
+            text-decoration: none;
+            color: themes.themed(text-color);
+        }
+    }
 }
 
 footer {
-    grid-row: footer;
-    grid-column: left / right;
+    grid-row: footer-start / footer-end;
+    grid-column: left-start / right-end;
+    background-color: themes.themed(grey-100);
 }
 
 main {
-    grid-row: content;
-    grid-column: center;
-}
-
-:root {
-    font-size: 18px;
-    font-weight: normal;
+    grid-row: content-start / content-end;
+    grid-column: center-start / center-end;
 }
 
 h1, h2, h3, h4, h5 {
+    @include fonts.wendy-one-regular;
+
     font-weight: bold;
-}
-
-h1 {
-    font-size: 32px;
-}
-
-h2 {
-    font-size: 28px;
-}
-
-h3 {
-    font-size: 25px;
-}
-
-h4 {
-    font-size: 22px;
-}
-
-h5 {
-    font-size: 20px;
 }

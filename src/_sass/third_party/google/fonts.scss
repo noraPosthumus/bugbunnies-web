@@ -1,0 +1,39 @@
+.share-tech-mono-regular {
+    font-family: "Share Tech Mono", monospace;
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+.monda-regular {
+    font-family: "Monda", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+.wendy-one-regular {
+    font-family: "Wendy One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+@mixin share-tech-mono-regular {
+    font-family: "Share Tech Mono", monospace;
+    font-weight: 400;
+    font-style: normal;
+}
+
+@mixin monda-regular {
+    font-family: "Monda", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+@mixin wendy-one-regular {
+    font-family: "Wendy One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}

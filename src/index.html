@@ -1,15 +1,16 @@
 ---
 ---
 
-<div id="team-member-list" class="flex-container flex-container--horizontal">
+<div id="team-member-list">
     {% for team_member in site.team_members %}
         <div class="card">
-            <h2 class="card__tilte">
-                {{team_member.name}}
-            </h2>
+            <h3 class="card__title">
+                {{ team_member.name }}
+            </h3>
             <p class="card__content">
-                {{team_member.content}}
+                {{ team_member.content | markdownify | strip_html }}
             </p>
+            <a href="/writeups#{{ team_member.name }}" class="card__button">Read {{ team_member.pronouns.genetive }} Writeups</a>
         </div>
     {% endfor %}
 </div>

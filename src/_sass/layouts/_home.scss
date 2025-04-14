@@ -1,0 +1,9 @@
+#team-member-list {
+    display: flex;
+    gap: 30px;
+    overflow-y: auto;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding-top: 35vh;
+    padding-bottom: 30px;
+}

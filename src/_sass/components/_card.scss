@@ -1,5 +1,22 @@
 @use 'themes' as themes;
 
 .card {
-    background-color: themes.themed('background-color');
+    background-color: themes.themed('grey-100');
+
+    width: 320px;
+    height: 250px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    padding: 40px;
+
+    &__title {
+        text-indent: 20px;
+    }
+
+    &__button {
+        align-self: center;
+    }
 }
