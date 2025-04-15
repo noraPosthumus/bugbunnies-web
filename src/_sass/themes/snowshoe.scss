@@ -1,15 +1,28 @@
 $snowshoe: (
-  'text-color': #1C1D21,
-  'background-color': #E6FAFC,
-  'primary-color': #B8F9FF,
-  'secondary-color': #FC6471,
-  'grey-100': #F9F9F9,
-  'grey-200': #F3F4F5,
-  'grey-300': #CED3D8,
-  'grey-400': #ACB3BB,
-  'grey-500': #8E97A4,
-  'grey-600': #707B88,
-  'grey-700': #5D6A7A,
-  'grey-800': #455568,
-  'grey-900': #27394B
+  'text': #240003,
+  'white': #FFFFFF,
+
+  'primary-background': #FDFAF1,
+  'primary-background-light': #FFFEF9,
+
+  'primary-foreground': #7F42C8,
+  'primary-accent': #C7A1F5,
+
+  'green-background': #9CFFAE,
+  'green-accent': #44B558,
+  'green-foreground': #19782B,
+
+  'blue-background': #94C6FF,
+  'blue-accent': #4591E6,
+  'blue-foreground': #1C4C84,
+
+  'red-background': #FF6755,
+  'red-accent': #CE3422,
+  'red-foreground': #770E02,
+
+  'yellow-background': #FFEB87,
+  'yellow-accent': #C8AF33,
+  'yellow-foreground': #847111,
+
+  'border-width': 10px
 );

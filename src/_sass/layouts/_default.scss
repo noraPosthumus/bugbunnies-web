@@ -3,6 +3,8 @@
 
 :root {
     @include fonts.monda-regular;
+
+    color: themes.themed('text');
 }
 
 body {
@@ -11,19 +13,18 @@ body {
 
     display: grid;
     grid-template-columns: [left-start] 10vw [left-end center-start] 80vw [center-end right-start] 10vw [right-end];
-    grid-template-rows: [header-start] 40px [header-end content-start] auto [content-end footer-start] 1.8rem [footer-end];
-    background-color: themes.themed(grey-200);
+    grid-template-rows: [header-start] 70px [header-end content-start] auto [content-end footer-start] 1.8rem [footer-end];
+    background-color: themes.themed('primary-background');
 }
 
 header {
     grid-row: header-start / header-end;
     grid-column: left-start / right-end;
-    background-color: themes.themed(grey-100);
+    background-color: themes.themed('primary-background');
 
-    height: 70px;
     display: grid;
     grid-template-columns: auto 80px auto;
-    padding: 0 40px;
+    padding: 0 8vw;
 
     & nav {
         @include fonts.share-tech-mono-regular;
@@ -36,7 +37,7 @@ header {
     
         a {
             text-decoration: none;
-            color: themes.themed(text-color);
+            color: themes.themed('text');
         }
     }
 }
@@ -44,7 +45,10 @@ header {
 footer {
     grid-row: footer-start / footer-end;
     grid-column: left-start / right-end;
-    background-color: themes.themed(grey-100);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 main {

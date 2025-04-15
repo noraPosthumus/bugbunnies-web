@@ -1,25 +1,57 @@
 @use 'themes' as themes;
+@use 'third_party/google/fonts' as fonts;
 
 .accordion {
+
     &__element {
+
         width: 100%;
+
+        padding: 5px 20px;
+      
+        &:last-child:after {
+            content: '';
+            display: inline-block;
+            height: 20px;
+            width: 100%;
+            border-radius: 0 0 15px 15px;
+            border-top: none;
+        }
+
+        
+        &:first-child {
+            .accordion__toggle {
+                border-radius: 15px 15px 0 0;
+            }
+        }
     }
 
     &__toggle {
+
         cursor: pointer;
-        background-color: themes.themed(primary-color);
+
+        padding: 20px 10px 10px 10px;
+
+        margin-bottom: 5px;
+
+        @include fonts.wendy-one-regular;
+
     }
 
     &__body {
+
         width: 100%;
+        border-collapse: collapse;
 
         & tr {
+
             width: 100%;
             display: grid;
             grid-template-columns: 20% auto min-content;
             gap: 10px;
             position: relative;
-            padding: 20px 0;
+            padding: 20px;
+            margin-bottom: 5px;
 
             & th a {
                 position: absolute;
@@ -31,6 +63,7 @@
                 display: flex;
                 align-items: center;
                 justify-content: start;
+                text-indent: 30px;
             }
         }
     }

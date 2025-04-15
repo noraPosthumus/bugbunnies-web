@@ -1,7 +1,7 @@
 @use 'themes' as themes;
 
 .card {
-    background-color: themes.themed('grey-100');
+    background-color: themes.themed('green-background');
 
     width: 320px;
     height: 250px;
@@ -12,11 +12,15 @@
 
     padding: 40px;
 
+    border: themes.themed('border-width') solid themes.themed('white');
+    border-radius: 10px;
+
     &__title {
         text-indent: 20px;
     }
 
     &__button {
         align-self: center;
+        color: themes.themed('green-accent');
     }
 }
