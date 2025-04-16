@@ -1,28 +1,33 @@
-$snowshoe: (
-  'text': #240003,
-  'white': #FFFFFF,
+@use "sass:map";
 
-  'primary-background': #FDFAF1,
-  'primary-background-light': #FFFEF9,
+$colors: (
+  "text": #240003,
+  "white": #FFFFFF,
 
-  'primary-foreground': #7F42C8,
-  'primary-accent': #C7A1F5,
+  "primary-background": #FDFAF1,
+  "primary-background-light": #FFFEF9,
 
-  'green-background': #9CFFAE,
-  'green-accent': #44B558,
-  'green-foreground': #19782B,
+  "primary-foreground": #7F42C8,
+  "primary-accent": #C7A1F5,
 
-  'blue-background': #94C6FF,
-  'blue-accent': #4591E6,
-  'blue-foreground': #1C4C84,
+  "green-background": #9CFFAE,
+  "green-accent": #44B558,
+  "green-foreground": #19782B,
 
-  'red-background': #FF6755,
-  'red-accent': #CE3422,
-  'red-foreground': #770E02,
+  "blue-background": #94C6FF,
+  "blue-accent": #4591E6,
+  "blue-foreground": #1C4C84,
 
-  'yellow-background': #FFEB87,
-  'yellow-accent': #C8AF33,
-  'yellow-foreground': #847111,
+  "red-background": #FF6755,
+  "red-accent": #CE3422,
+  "red-foreground": #770E02,
 
-  'border-width': 10px
+  "yellow-background": #FFEB87,
+  "yellow-accent": #C8AF33,
+  "yellow-foreground": #847111
 );
+
+@mixin border {
+  border: solid 10px map-get($colors, 'white');
+  border-radius: 15px;
+}

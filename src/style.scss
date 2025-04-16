@@ -5,7 +5,7 @@
 @use 'themes';
 @use 'components';
 @use 'layouts';
-@use 'third_party/pygments/monokai.css';
+@use 'themes/snowshoe-code';
 
 .js_not-in-query {
     display: none !important;

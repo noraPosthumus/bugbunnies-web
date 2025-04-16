@@ -1,8 +1,8 @@
-@use 'themes/snowshoe';
-@use 'sass:meta';
+@use 'themes/snowshoe' as snowshoe;
 @use 'third_party/komplett/themed' as *;
 @forward 'third_party/komplett/themed';
+@forward 'themes/snowshoe' show border;
 
-$theme-map: meta.module-variables('snowshoe');
+$theme-map: ('snowshoe': snowshoe.$colors);
 
 @include apply($theme-map);

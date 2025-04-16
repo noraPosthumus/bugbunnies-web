@@ -1,0 +1,341 @@
+/* Rouge Syntax Highlighting Theme by Google Gemini based in the snowshoe theme */
+
+.highlight {
+    /* Code block background */
+    background-color: var(--themed-primary-background-light);
+    /* Default text color */
+    color: var(--themed-text);
+    padding: 0.5em 1em;
+    margin: 0.5em 0;
+    border-radius: 15px;
+    /* For long lines of code */
+    overflow-x: auto;
+}
+
+.highlight .chroma {
+    color: inherit;
+}
+
+.highlight .err {
+    /* Error */
+    color: var(--themed-red-foreground);
+    background-color: var(--themed-red-background);
+}
+
+.highlight .esc {
+    /* Escape sequences */
+    color: var(--themed-blue-foreground);
+}
+
+.highlight .g {
+    /* Generic, non-highlighting */
+    color: inherit;
+}
+
+.highlight .ge {
+    /* Generic error */
+    font-style: italic;
+}
+
+.highlight .gh {
+    /* Generic heading */
+    color: var(--themed-primary-foreground);
+    font-weight: bold;
+}
+
+.highlight .gi {
+    /* Generic inserted */
+    color: var(--themed-green-foreground);
+}
+
+.highlight .go {
+    /* Generic output */
+    color: #888;
+}
+
+.highlight .gp {
+    /* Generic prompt */
+    color: #555;
+}
+
+.highlight .gs {
+    /* Generic strong */
+    font-weight: bold;
+}
+
+.highlight .gu {
+    /* Generic underlined */
+    text-decoration: underline;
+}
+
+.highlight .gw {
+    /* Generic whitespace */
+    color: inherit;
+}
+
+.highlight .gr {
+    /* Generic raw */
+    color: inherit;
+}
+
+.highlight .gt {
+    /* Generic tracedown */
+    color: var(--themed-red-foreground);
+}
+
+.highlight .kc {
+    /* Keyword constant */
+    color: var(--themed-blue-foreground);
+}
+
+.highlight .kd {
+    /* Keyword declaration */
+    color: var(--themed-blue-foreground);
+}
+
+.highlight .kn {
+    /* Keyword namespace */
+    color: var(--themed-primary-foreground);
+}
+
+.highlight .kp {
+    /* Keyword pseudo */
+    color: var(--themed-blue-foreground);
+}
+
+.highlight .kr {
+    /* Keyword reserved */
+    color: var(--themed-blue-foreground);
+}
+
+.highlight .kt {
+    /* Keyword type */
+    color: var(--themed-green-foreground);
+}
+
+.highlight .ld {
+    /* Literal date */
+    color: var(--themed-green-foreground);
+}
+
+.highlight .m {
+    /* Literal number */
+    color: var(--themed-red-foreground);
+}
+
+.highlight .s {
+    /* Literal string */
+    color: var(--themed-green-foreground);
+}
+
+.highlight .na {
+    /* Name attribute */
+    color: var(--themed-primary-accent);
+}
+
+.highlight .nb {
+    /* Name builtin */
+    color: var(--themed-blue-foreground);
+}
+
+.highlight .nc {
+    /* Name class */
+    color: var(--themed-primary-foreground);
+    font-weight: bold;
+}
+
+.highlight .no {
+    /* Name constant */
+    color: var(--themed-red-accent);
+}
+
+.highlight .nd {
+    /* Name decorator */
+    color: var(--themed-blue-accent);
+}
+
+.highlight .ni {
+    /* Name entity */
+    color: var(--themed-red-foreground);
+}
+
+.highlight .ne {
+    /* Name exception */
+    color: var(--themed-red-foreground);
+}
+
+.highlight .nf {
+    /* Name function */
+    color: var(--themed-blue-accent);
+}
+
+.highlight .nl {
+    /* Name label */
+    color: var(--themed-yellow-foreground);
+}
+
+.highlight .nn {
+    /* Name namespace */
+    color: inherit;
+}
+
+.highlight .nx {
+    /* Name other */
+    color: inherit;
+}
+
+.highlight .py {
+    /* Name property */
+    color: var(--themed-primary-accent);
+}
+
+.highlight .nt {
+    /* Name tag */
+    color: var(--themed-red-foreground);
+}
+
+.highlight .nv {
+    /* Name variable */
+    color: var(--themed-primary-foreground);
+}
+
+.highlight .ow {
+    /* Operator word */
+    color: var(--themed-blue-foreground);
+}
+
+.highlight .o {
+    /* Operator */
+    color: var(--themed-primary-foreground);
+}
+
+.highlight .w {
+    /* Text whitespace */
+    color: inherit;
+}
+
+.highlight .mb {
+    /* Literal number binary */
+    color: var(--themed-red-foreground);
+}
+
+.highlight .mf {
+    /* Literal number float */
+    color: var(--themed-red-foreground);
+}
+
+.highlight .mh {
+    /* Literal number hex */
+    color: var(--themed-red-foreground);
+}
+
+.highlight .mi {
+    /* Literal number integer */
+    color: var(--themed-red-foreground);
+}
+
+.highlight .mo {
+    /* Literal number oct */
+    color: var(--themed-red-foreground);
+}
+
+.highlight .sa {
+    /* Literal string affine */
+    color: var(--themed-green-foreground);
+}
+
+.highlight .sb {
+    /* Literal string backticks */
+    color: var(--themed-green-foreground);
+}
+
+.highlight .sc {
+    /* Literal string char */
+    color: var(--themed-yellow-foreground);
+}
+
+.highlight .dl {
+    /* Literal string delimiter */
+    color: var(--themed-green-foreground);
+}
+
+.highlight .sd {
+    /* Literal string doc */
+    color: #999;
+    font-style: italic;
+}
+
+.highlight .s2 {
+    /* Literal string double */
+    color: var(--themed-green-foreground);
+}
+
+.highlight .se {
+    /* Literal string escape */
+    color: var(--themed-blue-foreground);
+}
+
+.highlight .sh {
+    /* Literal string here */
+    color: var(--themed-green-foreground);
+}
+
+.highlight .si {
+    /* Literal string interpolated */
+    color: var(--themed-blue-accent);
+}
+
+.highlight .sx {
+    /* Literal string other */
+    color: var(--themed-blue-foreground);
+}
+
+.highlight .sr {
+    /* Literal string regex */
+    color: var(--themed-red-accent);
+}
+
+.highlight .s1 {
+    /* Literal string single */
+    color: var(--themed-green-foreground);
+}
+
+.highlight .ss {
+    /* Literal string symbol */
+    color: var(--themed-yellow-foreground);
+}
+
+.highlight .bp {
+    /* Name builtin pseudo */
+    color: var(--themed-blue-foreground);
+}
+
+.highlight .fm {
+    /* Name function magic */
+    color: var(--themed-blue-accent);
+}
+
+.highlight .vc {
+    /* Name variable class */
+    color: var(--themed-primary-foreground);
+}
+
+.highlight .vg {
+    /* Name variable global */
+    color: var(--themed-primary-foreground);
+}
+
+.highlight .vi {
+    /* Name variable instance */
+    color: var(--themed-primary-foreground);
+}
+
+.highlight .vm {
+    /* Name variable magic */
+    color: var(--themed-primary-foreground);
+}
+
+.highlight .il {
+    /* Literal number integer long */
+    color: var(--themed-red-foreground);
+}

@@ -2,6 +2,7 @@
 
 .card {
     background-color: themes.themed('green-background');
+    @include themes.border;
 
     width: 320px;
     height: 250px;
@@ -12,8 +13,6 @@
 
     padding: 40px;
 
-    border: themes.themed('border-width') solid themes.themed('white');
-    border-radius: 10px;
 
     &__title {
         text-indent: 20px;
