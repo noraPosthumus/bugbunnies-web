@@ -31,3 +31,7 @@ $colors: (
   border: solid 10px map-get($colors, 'white');
   border-radius: 15px;
 }
+
+@mixin shadow {
+  box-shadow: 0 0 12px rgba(0, 0, 0, .16);
+}

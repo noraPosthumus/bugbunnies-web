@@ -1,7 +1,7 @@
 @use 'themes/snowshoe' as snowshoe;
 @use 'third_party/komplett/themed' as *;
 @forward 'third_party/komplett/themed';
-@forward 'themes/snowshoe' show border;
+@forward 'themes/snowshoe' show border, shadow;
 
 $theme-map: ('snowshoe': snowshoe.$colors);
 
