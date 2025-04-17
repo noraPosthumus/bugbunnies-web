@@ -11,11 +11,11 @@
     <title>{{ page.title }}</title>
 </head>
 <body>
+    <script src="{{ '/assets/js/script.js' | relative_url }}"></script>
     {% include header.html %}
     <main>
         {{ content }}
     </main>
     {% include footer.html %}
 </body>
-<script src="{{ '/assets/js/script.js' | relative_url }}"></script>
 </html>

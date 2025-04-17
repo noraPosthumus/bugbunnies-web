@@ -11,6 +11,7 @@
     <title>BugBunnies - Team</title>
 </head>
 <body>
+    <script src="/assets/js/script.js"></script>
     <header>
     <nav>
         <a href="/">/Home</a>
@@ -21,49 +22,53 @@
     <main>
         <div id="team-member-list">
     
-        <div class="card">
-            <h3 class="card__title">
-                0x90
-            </h3>
-            <p class="card__content">
-                As the captain of the team he Pwns, breaks, but also talks too much.
+    <div class="card">
+        <h3 class="card__title">
+            0x90
+        </h3>
+        <p class="card__content">
+            As the captain of the team he Pwns, breaks, but also talks too much.
 
-            </p>
-            <a href="/writeups#0x90" class="card__button">> Read his Writeups</a>
-        </div>
+        </p>
+        <a href="/writeups#0x90" class="card__button">> Read his
+            Writeups</a>
+    </div>
     
-        <div class="card">
-            <h3 class="card__title">
-                Mythic
-            </h3>
-            <p class="card__content">
-                Hacks any system, puppeteered by his AI overloards.
+    <div class="card">
+        <h3 class="card__title">
+            Mythic
+        </h3>
+        <p class="card__content">
+            Hacks any system, puppeteered by his AI overloards.
 
-            </p>
-            <a href="/writeups#Mythic" class="card__button">> Read his Writeups</a>
-        </div>
+        </p>
+        <a href="/writeups#Mythic" class="card__button">> Read his
+            Writeups</a>
+    </div>
     
-        <div class="card">
-            <h3 class="card__title">
-                umeK
-            </h3>
-            <p class="card__content">
-                The brightest of em all, completed PWNY sqli training twice.
+    <div class="card">
+        <h3 class="card__title">
+            umeK
+        </h3>
+        <p class="card__content">
+            The brightest of em all, completed PWNY sqli training twice.
 
-            </p>
-            <a href="/writeups#umeK" class="card__button">> Read his Writeups</a>
-        </div>
+        </p>
+        <a href="/writeups#umeK" class="card__button">> Read his
+            Writeups</a>
+    </div>
     
-        <div class="card">
-            <h3 class="card__title">
-                w1zardess
-            </h3>
-            <p class="card__content">
-                Her 1337  magic spells can pass any auth you throw at her.
+    <div class="card">
+        <h3 class="card__title">
+            w1zardess
+        </h3>
+        <p class="card__content">
+            Her 1337  magic spells can pass any auth you throw at her.
 
-            </p>
-            <a href="/writeups#w1zardess" class="card__button">> Read her Writeups</a>
-        </div>
+        </p>
+        <a href="/writeups#w1zardess" class="card__button">> Read her
+            Writeups</a>
+    </div>
     
 </div>
 <script src="assets/js/plain-draggable.min.js"></script>
@@ -73,54 +78,89 @@
     const centerX = window.innerWidth / 2;
     const centerY = window.innerHeight / 2;
     const radius = 500;
-    const maxJitter = 100;
+    const maxJitter = 80;
 
-    cards.forEach((card, i) => {
+    let localUIState = getUIState();
 
+    const hasIntroAnimationPlayed = localUIState?.animationState?.introPlayed || false;
+
+
+    const draggableCards = cards.map((card, i) => {
         card.style.opacity = 0;
-        card.style.zIndex = i;
-
-        const angle = (2 * Math.PI / cards.length) * i;
-
-        let x = centerX + radius * Math.cos(angle);
-        let y = centerY + radius * Math.sin(angle);
-
-        x += (Math.random() - 0.5) * maxJitter * 2;
-        y += (Math.random() - 0.5) * maxJitter * 2;
-
-        const cardWidth = card.offsetWidth || 215; 
-        const cardHeight = card.offsetHeight || 85;
-
-        x -= cardWidth / 2;
-        y -= cardHeight / 2;
 
         draggableCard = new PlainDraggable(card);
-        draggableCard.containment = {left: 0, top: '10%', width: '100%', height: '85%'};
+        draggableCard.containment = { left: 0, top: '10%', width: '100%', height: '85%' };
         draggableCard.zIndex = false;
+
+        let x,y,zIndex;
+
+        if(localUIState.animationState.cardPositions) {
+            x = localUIState.animationState.cardPositions[i]?.left;
+            y = localUIState.animationState.cardPositions[i]?.top;
+            zIndex = localUIState.animationState.cardPositions[i]?.zIndex;
+        }
+
+        if (!hasIntroAnimationPlayed || !x || !y || !zIndex) {
+
+            console.log(i)
+            const angle = (2 * Math.PI / cards.length) * i;
+
+            x = centerX + radius * Math.cos(angle);
+            y = centerY + radius * Math.sin(angle);
+
+            y = Math.max(y, window.innerHeight * 0.2)
+            y = Math.min(y, window.innerHeight * 0.85)
+
+            x += (Math.random() - 0.5) * maxJitter * 2;
+            y += (Math.random() - 0.5) * maxJitter * 2;
+
+            const cardWidth = card.offsetWidth || 215;
+            const cardHeight = card.offsetHeight || 85;
+
+            x -= cardWidth / 2;
+            y -= cardHeight / 2;
+
+            zIndex = i;
+
+            setTimeout(() => {
+                card.classList.add('show');
+            }, i * 500);
+        } else {
+            card.classList.add('show');
+        }
 
         draggableCard.left = x;
         draggableCard.top = y;
 
-        draggableCard.onDragStart = function() {
+        card.style.zIndex = zIndex;
+
+        draggableCard.onDragStart = function () {
             cards.forEach(card => {
                 if (this.element.style.zIndex < card.style.zIndex) {
-                    card.style.zIndex -= 1
+                    card.style.zIndex -= 1;
                 }
             })
-            this.element.style.zIndex = cards.length -1;
+            this.element.style.zIndex = cards.length - 1;
         };
 
-        setTimeout(() => {
-            card.classList.add('show');
-        }, i * 500);
+        return draggableCard;
     })
-</script>
 
+    if (!hasIntroAnimationPlayed) {
+        setTimeout(() => {
+            updateUIState('animationState', { "introPlayed": true });
+        }, cards.length * 500)
+    }
+
+    window.addEventListener('beforeunload', () => {
+        updateUIState("animationState", { "cardPositions": draggableCards.map(card => ({ top: card.top || 1, left: card.left || 1, zIndex: card.element.style.zIndex })) });
+    });
+
+</script>
     </main>
     <footer>
     © - BugBunnies
 </footer>
 
 </body>
-<script src="/assets/js/script.js"></script>
 </html>
