@@ -13,7 +13,7 @@ body {
 
     display: grid;
     grid-template-columns: [left-start] 10vw [left-end center-start] 80vw [center-end right-start] 10vw [right-end];
-    grid-template-rows: [header-start] 70px [header-end content-start] auto [content-end footer-start] 1.8rem [footer-end];
+    grid-template-rows: [header-start] 150px [header-end content-start] auto [content-end footer-start] 1.8rem [footer-end];
     background-color: themes.themed('primary-background');
 }
 
@@ -30,14 +30,17 @@ header {
         @include fonts.share-tech-mono-regular;
 
         display: flex;
-        gap: 30px;
-        align-items: center;
+        gap: 100px;
+        padding-top: 50px;
 
         font-size: 1.2rem;
     
         a {
-            color: themes.themed('primary-foreground');
+            color: themes.themed('primary-accent');
             text-decoration: none;
+            &.active {
+                color: themes.themed('primary-foreground');
+            }
         }
     }
 }

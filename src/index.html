@@ -11,7 +11,7 @@ title: BugBunnies - Team
             <p class="card__content">
                 {{ team_member.content | markdownify | strip_html }}
             </p>
-            <a href="/writeups#{{ team_member.name }}" class="card__button">Read {{ team_member.pronouns.genetive }} Writeups</a>
+            <a href="/writeups#{{ team_member.name }}" class="card__button">> Read {{ team_member.pronouns.genetive }} Writeups</a>
         </div>
     {% endfor %}
 </div>
