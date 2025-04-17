@@ -13,9 +13,10 @@
 <body>
     <script src="/assets/js/script.js"></script>
     <header>
+    
     <nav>
-        <a href="/">/Home</a>
-        <a href="/writeups">/Writeups</a>
+        <a href="/" class='active'>/Home</a>
+        <a href="/writeups" >/Writeups</a>
     </nav>
 </header>
 
@@ -80,23 +81,23 @@
             <circle cx="100" cy="100" r="90" fill="none" stroke="#fff" stroke-width="2" />
             <circle cx="100" cy="100" r="60" fill="none" stroke="#fff" stroke-width="2" />
             <circle cx="100" cy="100" r="30" fill="none" stroke="#fff" stroke-width="2" />
-    
+
             <!-- Crosshairs -->
             <line x1="100" y1="0" x2="100" y2="200" stroke="#fff" stroke-width="2" />
             <line x1="0" y1="100" x2="200" y2="100" stroke="#fff" stroke-width="2" />
-    
+
             <!-- Rotating Sweep Group -->
             <g id="sweep">
-                <path d="M100 100 L190 100 A90 90 0 0 1 100 190 Z" fill="url(#sweepGradient)" />
+                <path d="M100 100 L190 100 A90 90 0 0 1 100 190 Z" fill="url(#sweepGradient)"/>
             </g>
-    
+
             <!-- Gradient for sweep effect -->
             <defs>
                 <radialGradient id="sweepGradient" cx="100" cy="100" r="90" gradientUnits="userSpaceOnUse">
                     <stop offset="0%" stop-color="#fff" stop-opacity="0.3" />
                     <stop offset="100%" stop-color="#fff" stop-opacity="0" />
                 </radialGradient>
-    
+
                 <filter id="red-glow" filterUnits="userSpaceOnUse" x="-50%" y="-50%" width="200%" height="200%">
                     <!-- blur the text at different levels-->
                     <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur5" />
@@ -122,14 +123,14 @@
         <style>
             #sweep {
                 transform-origin: center;
-                animation: spin 3s linear infinite;
+                animation: spin 4s linear infinite;
             }
-    
+
             @keyframes spin {
                 from {
                     transform: rotate(0deg);
                 }
-    
+
                 to {
                     transform: rotate(360deg);
                 }
@@ -173,15 +174,6 @@
 
     const hasIntroAnimationPlayed = localUIState?.animationState?.introPlayed || false;
 
-    if(hasIntroAnimationPlayed) {
-        for(let i = 0; i < cards.length; i++) {
-            const securityAlert = document.createElement('p');
-            securityAlert.innerText = "> Threat detected!";
-            securityLog.appendChild(securityAlert);
-        }
-    }
-
-
     const draggableCards = cards.map((card, i) => {
         card.style.opacity = 0;
 
@@ -191,16 +183,31 @@
 
         let x, y, zIndex;
 
-        if (localUIState.animationState.cardPositions) {
+        const angle = (2 * Math.PI / cards.length) * i;
+        let color = "#9CFFAE";
+
+        switch (i%4) {
+            case 1:
+                color = "#94C6FF";
+                break;
+            case 2:
+                color = "#FFEB87";
+                break;
+            case 3:
+                color = "#FF6755";
+        }
+
+        if (hasIntroAnimationPlayed && localUIState.animationState.cardPositions) {
             x = localUIState.animationState.cardPositions[i]?.left;
             y = localUIState.animationState.cardPositions[i]?.top;
             zIndex = localUIState.animationState.cardPositions[i]?.zIndex;
+
+            detectThreat(color, x, y, angle);
         }
 
         if (!hasIntroAnimationPlayed || !x || !y || !zIndex) {
 
             console.log(i)
-            const angle = (2 * Math.PI / cards.length) * i;
 
             x = centerX + radius * Math.cos(angle);
             y = centerY + radius * Math.sin(angle);
@@ -220,11 +227,8 @@
             zIndex = i + 1;
 
             setTimeout(() => {
-                card.classList.add('show');
-                const securityAlert = document.createElement('p');
-                securityAlert.innerText = "> Threat detected!";
-                securityLog.appendChild(securityAlert);
-            }, i * 1000);
+                detectThreat(color, x, y, angle, card);
+            }, i* 800 + 50);
         } else {
             card.classList.add('show');
         }
@@ -257,13 +261,33 @@
 
     window.addEventListener('beforeunload', () => {
         updateUIState("animationState", { "cardPositions": draggableCards.map(card => ({ top: card.top || 1, left: card.left || 1, zIndex: card.element.style.zIndex })) });
-        updateUIState("animationState", { "securityRadarPosition": { top: draggableSecurityRadar.top || 1, left: draggableSecurityRadar.left || 1, zIndex: securityRadar.style.zIndex }});
+        updateUIState("animationState", { "securityRadarPosition": { top: draggableSecurityRadar.top || 1, left: draggableSecurityRadar.left || 1, zIndex: securityRadar.style.zIndex } });
     });
 
-    ``
-    document.getElementById('team-member-list')
+    function createBlip(x, y, color) {
+        const svg = document.getElementById("radar");
+        const blip = document.createElementNS("http://www.w3.org/2000/svg", "circle");
 
+        blip.setAttribute("cx", x);
+        blip.setAttribute("cy", y);
+        blip.setAttribute("r", 5);
+        blip.setAttribute("fill", color);
+        blip.classList.add("blip");
 
+        svg.appendChild(blip);
+    }
+
+    function detectThreat(color, x, y, angle, card=undefined) {
+        x = 100 + (Math.abs(x - window.innerWidth * 0.5) / (window.innerWidth * 0.5)) * 90 * Math.cos(angle);
+        y = 100 + (Math.abs(y - window.innerHeight * 0.5) / (window.innerHeight * 0.5)) * 90 * Math.sin(angle);
+        createBlip(x, y, color);
+        if(card) {
+            card.classList.add('show');
+        }
+        const securityAlert = document.createElement('p');
+        securityAlert.innerText = "> Threat detected!";
+        securityLog.appendChild(securityAlert);
+    }
 </script>
     </main>
     <footer>

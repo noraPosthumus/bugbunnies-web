@@ -99,6 +99,7 @@
     &__button {
         align-self: center;
         color: $card-accent;
+        @include fonts.share-tech-mono-regular;
     }
 
 

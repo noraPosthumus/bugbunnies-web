@@ -15,13 +15,17 @@ body {
     grid-template-columns: [left-start] 10vw [left-end center-start] 80vw [center-end right-start] 10vw [right-end];
     grid-template-rows: [header-start] 150px [header-end content-start] auto [content-end footer-start] 1.8rem [footer-end];
     background-color: themes.themed('primary-background');
+
+    background-image: url('assets/images/circuit-board-bg.png');
+    background-size: cover;
+    background-blend-mode: soft-light;
 }
 
 header {
     grid-row: header-start / header-end;
     grid-column: left-start / right-end;
-    background-color: themes.themed('primary-background');
-
+    background-image: linear-gradient(themes.themed('primary-background') 50%, rgba(0,0,0,0));
+    z-index: 10;
     display: grid;
     grid-template-columns: auto 80px auto;
     padding: 0 8vw;
