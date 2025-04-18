@@ -29,3 +29,5 @@ defaults:
 sass:
   style: compressed
   sourcemap: never
+plugins:
+    - jektex
