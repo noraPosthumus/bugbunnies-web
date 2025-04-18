@@ -6,8 +6,8 @@ Jekyll::Hooks.register :documents, :pre_render do |doc|
       # Only assign if not manually set
       doc.data["event"] ||= folder
   
-      # Set permalink to /:collections/:event/:title (title is pretty)
-      @custom_url_template ||= "/#{doc.collection.label}/#{doc.data["event"]}/#{doc.data["title"]}"
+      # Set permalink to /:collections/:event/:title
+      doc.data["permalink"] = "/#{doc.collection.label}/#{Jekyll::Utils.slugify(doc.data["event"])}/#{Jekyll::Utils.slugify(doc.data["title"])}"
     end
   end
   

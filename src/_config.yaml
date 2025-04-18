@@ -1,5 +1,4 @@
 destination: /srv/dist
-permalink:  /:categories/:title
 collections:
   team_members:
     sort_by:  name
