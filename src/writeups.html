@@ -18,14 +18,14 @@ title: Writeups
                         <tr class="js_searchable">
                             <th scope="row"><a href="{{ writeup.url }}">{{ writeup.title }}</a></th>
                             <td>
-                                <p>{{ writeup.excerpt | markdownify | strip_html | truncatewords:50 }}</p>
+                                <p>{{ writeup.excerpt | markdownify | strip_html | truncatewords:20 }}</p>
                             </td>
                             <td>
-                                {% for tag in writeup.tags %}
-                                    <ul class="tag-list">
-                                        <li class="tag">{{ tag }}</li>
-                                    </ul>
-                                {% endfor %}
+                                <ul class="tag-list">
+                                    {% for tag in writeup.tags %}
+                                        <li class="tag tag--type-{{tag}}">{{ tag }}</li>
+                                    {% endfor %}
+                                </ul>
                             </td>
                         </tr>
                     {% endif %}

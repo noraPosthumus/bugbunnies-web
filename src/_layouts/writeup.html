@@ -1,19 +1,19 @@
 ---
 layout: default
 ---
-<a href="/writeups#{{ page.event }}">Back to overview</a>
 <article>
+    <div class="article-metadata">
+        <span>
+            <p>Published by </p><address>{{ page.author }}</address><p> on </p><time datetime="{{ page.date }}"> {{ page.date | date: "%B %-d, %Y" }} </time>
+        </span>
+        <a href="/writeups#{{ page.event }}">Back to overview</a>
+    </div>
+    <h6>{{page.event}}/</h6>
+    <h1>{{ page.title }}</h1>
     <ul class="tag-list">
         {% for tag in page.tags %}
-            <li class="tag">{{ tag }}</li>
+            <li class="tag tag--type-{{tag}}">{{ tag }}</li>
         {% endfor %}
     </ul>
-    <h1>{{ page.title }}</h1>
-    <div class="article-metadata">
-        <p>
-            Published on <time datetime="{{ page.date }}"> {{ page.date | date: "%B %-d, %Y" }} </time>
-            by <address>{{ page.author }}</address>
-        </p>
-    </div>
     {{ content }}
 </article>

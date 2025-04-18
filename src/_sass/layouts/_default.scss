@@ -56,6 +56,8 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
+
+    background-color: themes.themed('primary-background');
 }
 
 main {
@@ -65,6 +67,6 @@ main {
 
 h1, h2, h3, h4, h5 {
     @include fonts.wendy-one-regular;
-
+    color: themes.themed('primary-foreground');
     font-weight: bold;
 }

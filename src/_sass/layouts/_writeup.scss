@@ -1,0 +1,111 @@
+@use 'themes' as themes;
+@use 'third_party/google/fonts' as fonts;
+
+main {
+    display: flex;
+    justify-content: center;
+}
+
+article {
+    @include themes.border;
+    border: none;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    @include themes.shadow;
+
+    max-width: 1000px;
+
+    padding: 80px 100px;
+
+    background-color: themes.themed('primary-background-light');
+
+    .article-metadata {
+        display: flex;
+        justify-content: space-between;
+
+        address {
+            @include fonts.wendy-one-regular;
+        }
+
+        & span * {
+            display: inline;
+        }
+    }
+
+    h1 {
+        color: themes.themed('primary-foreground');
+        font-size: 2.8rem;
+        padding-bottom: 20px;
+    }
+
+    h2, h4, h5 {
+        text-indent: 20px;
+    }
+
+    h2 {
+        margin-top: 30px;
+    }
+
+    h3 {
+        color: themes.themed('primary-accent');
+        text-indent: 40px;
+        margin-top: 10px;
+    }
+
+    h6 {
+        @include fonts.share-tech-mono-regular;
+        color: themes.themed('primary-accent');
+        font-size: 1.2rem;
+        padding-top: 80px;
+    }
+
+    .tag-list {
+        padding-bottom: 40px;
+        margin: 0;
+    }
+
+    p {
+        padding: 1em 0;
+    }
+
+    code {
+        @include fonts.share-tech-mono-regular;
+        color: themes.themed('primary-accent');
+
+        &::before, &::after {
+            content: "`";
+        }
+    }
+
+    // Reset for multiline code blocks
+    .highlight > code {
+        &::before, &::after {
+            content: "";
+        }
+    }
+
+    strong, strong em {
+        color: themes.themed('primary-foreground');
+    }
+
+    em {
+        color: themes.themed('primary-accent');
+    }
+
+    img {
+        max-width: 80%;
+        max-height: 300px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    ul, ol {
+        margin-left: 50px;
+    }
+
+    a {
+        color: themes.themed('primary-foreground');
+        text-decoration: underline;
+    }
+}

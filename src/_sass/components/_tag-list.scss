@@ -2,6 +2,9 @@
 
 .tag-list {
     list-style: none;
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
 
     & .tag {
         border-radius: 15%;
@@ -9,5 +12,32 @@
         line-height: 1rem;
         background-color: themes.themed('blue-background');
         max-width: min-content;
+
+        &--type {
+            &-misc {
+                background-color: themes.themed('blue-background');
+                color: themes.themed('blue-foreground');
+            }
+
+            &-rev, &-re {
+                background-color: themes.themed('red-background');
+                color: themes.themed('red-foreground');
+            }
+
+            &-pwn {
+                background-color: themes.themed('green-background');
+                color: themes.themed('green-foreground');
+            }
+
+            &-crypto {
+                background-color: themes.themed('yellow-background');
+                color: themes.themed('yellow-foreground');
+            }
+
+            &-web {
+                background-color: themes.themed('primary-accent');
+                color: themes.themed('primary-foreground');
+            }
+        }
     }
 }
