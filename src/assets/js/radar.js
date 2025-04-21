@@ -370,6 +370,9 @@ function initializeAlerts(positions = []) {
 
     draggableCards.forEach((card, i) => {
         if (!positions[i]) { 
+            // Set initial opacity to 0 (will be revealed by radar)
+            card.element.style.opacity = 0;
+
             // Calculate new positions if not saved
             const { x, y } = calculateAlertLocation(
                 i, 
@@ -383,9 +386,6 @@ function initializeAlerts(positions = []) {
             card.left = x - (card.offsetWidth || 215) / 2;
             card.top = y - (card.offsetHeight || 85) / 2;
             card.element.style.zIndex = i;
-            
-            // Set initial opacity to 0 (will be revealed by radar)
-            card.element.style.opacity = 0;
         } else {
             // Use saved positions
             card.left = positions[i].x;

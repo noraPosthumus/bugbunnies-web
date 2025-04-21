@@ -6,7 +6,7 @@ services:
     container_name: jekyll_site
     command: bundle exec jekyll serve --watch --force_polling --host 0.0.0.0
     ports:
-      - "4000:4000"
+      - "3000:4000"
     volumes:
       - ./src:/srv/jekyll
       - ./dist:/srv/dist
