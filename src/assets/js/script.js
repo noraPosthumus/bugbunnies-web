@@ -12,6 +12,8 @@ accordionElements.forEach(accordionToggle => {
 function handleLoad() {
     localUIState = getUIState();
 
+    Array.from(document.getElementsByClassName('accordion__element'))[0].open = true;
+
     // apply accordionState
     Object.entries(localUIState.accordionState || {}).forEach(([key, value]) => {
         target = document.getElementById(key);

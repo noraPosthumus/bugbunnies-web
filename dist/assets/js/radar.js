@@ -21,6 +21,11 @@ let cardColors = []; // Store card background colors
 function initializeUI() {
     // Set up main UI components
 
+    // Set initial opacity to 0 (will be revealed by radar)
+    Array.from(document.getElementsByClassName('card')).forEach(card => {
+        card.style.opacity = 0;
+    })
+
     radarHTMLString = `    <div id="js_security-radar" class="security-radar">
         <h3>
             Security Radar
@@ -370,8 +375,6 @@ function initializeAlerts(positions = []) {
 
     draggableCards.forEach((card, i) => {
         if (!positions[i]) { 
-            // Set initial opacity to 0 (will be revealed by radar)
-            card.element.style.opacity = 0;
 
             // Calculate new positions if not saved
             const { x, y } = calculateAlertLocation(

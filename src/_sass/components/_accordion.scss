@@ -2,39 +2,57 @@
 @use 'third_party/google/fonts' as fonts;
 
 .accordion {
-    @include themes.border;
+
+    width: 100%;
+    max-width: 1000px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
 
     &__element {
+        @include themes.border;
+        @include themes.shadow;
 
-        width: 100%;
+        background-color: themes.themed('primary-background-light');
 
-        padding: 5px 20px;
 
-        &:last-child:after {
-            content: '';
-            display: inline-block;
-            height: 20px;
-            width: 100%;
-            border-top: none;
+        .accordion__toggle {
+            background-color: themes.themed('red-background');
+            color: themes.unthemed('red-foreground');
         }
 
-        &:first-child {
+        &:nth-child(4n+1) {
             .accordion__toggle {
-                border-radius: 15px 15px 0 0;
+                background-color: themes.themed('green-background');
+                color: themes.unthemed('green-foreground');
+            }
+        }
+
+        &:nth-child(4n+2) {
+            .accordion__toggle {
+                background-color: themes.themed('blue-background');
+                color: themes.unthemed('blue-foreground');
+            }
+        }
+
+        &:nth-child(4n+3) {
+            .accordion__toggle {
+                background-color: themes.themed('yellow-background');
+                color: themes.unthemed('yellow-foreground');
             }
         }
     }
 
     &__toggle {
-
         cursor: pointer;
+
+        border-radius: 10px;
 
         padding: 20px 10px 10px 10px;
 
-        margin-bottom: 5px;
-
         @include fonts.wendy-one-regular;
 
+        font-size: 1.5rem;
     }
 
     &__body {
@@ -45,8 +63,8 @@
         & tr {
 
             width: 100%;
-            display: grid;
-            grid-template-columns: 20% auto min-content;
+            display: flex;
+            justify-content: end;
             gap: 10px;
             position: relative;
             padding: 20px;
@@ -63,7 +81,24 @@
                 align-items: center;
                 justify-content: start;
                 text-indent: 30px;
+                max-width: 400px;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
             }
         }
+    }
+}
+
+search {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    input {
+        @include themes.border;
+        @include themes.shadow;
+        background-color: themes.themed('white');
+        padding: 10px;
     }
 }

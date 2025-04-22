@@ -3,10 +3,11 @@ title: Writeups
 permalink: "/writeups"
 ---
 {% assign events = site.writeups | map: "event" | uniq | sort %}
-<search>
-    <input type="search" name="searchbar" id="js_writeup-search">
-</search>
+
 <div class="accordion">
+    <search>
+        <input type="search" name="searchbar" id="js_writeup-search" placeholder="search...">
+    </search>
     {% for event in events %}
         <details class="accordion__element js_searchable" id="{{ event }}">
             <summary class="accordion__toggle js_accordion__toggle">
@@ -18,9 +19,6 @@ permalink: "/writeups"
                     {% if writeup.event == event %}
                         <tr class="js_searchable">
                             <th scope="row"><a href="{{ writeup.url }}">{{ writeup.title }}</a></th>
-                            <td>
-                                <p>{{ writeup.excerpt | markdownify | strip_html | truncatewords:20 }}</p>
-                            </td>
                             <td>
                                 <ul class="tag-list">
                                     {% for tag in writeup.tags %}
