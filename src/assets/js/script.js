@@ -12,7 +12,10 @@ accordionElements.forEach(accordionToggle => {
 function handleLoad() {
     localUIState = getUIState();
 
-    Array.from(document.getElementsByClassName('accordion__element'))[0].open = true;
+    const firstAccordionElement = Array.from(document.getElementsByClassName('accordion__element') || [undefined])[0];
+    if(firstAccordionElement){
+      firstAccordionElement.open = true;
+    }
 
     // apply accordionState
     Object.entries(localUIState.accordionState || {}).forEach(([key, value]) => {

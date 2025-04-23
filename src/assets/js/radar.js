@@ -22,9 +22,11 @@ function initializeUI() {
     // Set up main UI components
 
     // Set initial opacity to 0 (will be revealed by radar)
-    Array.from(document.getElementsByClassName('card')).forEach(card => {
-        card.style.opacity = 0;
-    })
+    if(!localUIState?.animationState?.cardPositions) {
+        Array.from(document.getElementsByClassName('card')).forEach(card => {
+            card.style.opacity = 0;
+        })
+    }
 
     radarHTMLString = `    <div id="js_security-radar" class="security-radar">
         <h3>
@@ -308,7 +310,7 @@ function initializeSecurityRadar() {
         (window.innerHeight - 410) / 2;
     
     securityRadar.style.zIndex = 
-        localUIState?.animationState?.securityRadarPosition?.zIndex || 4;
+        localUIState?.animationState?.securityRadarPosition?.zIndex || 0;
 
     return {securityRadar, draggableSecurityRadar};
 }
@@ -388,7 +390,7 @@ function initializeAlerts(positions = []) {
             // Center card on position
             card.left = x - (card.offsetWidth || 215) / 2;
             card.top = y - (card.offsetHeight || 85) / 2;
-            card.element.style.zIndex = i;
+            card.element.style.zIndex = i + 1;
         } else {
             // Use saved positions
             card.left = positions[i].x;

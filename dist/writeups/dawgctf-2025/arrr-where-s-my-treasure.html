@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="snowshoe">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="w1zardess">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Monda:wght@400..700&family=Share+Tech+Mono&family=Wendy+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+    <title>Arrr Where's My Treasure</title>
+</head>
+<body>
+    <script src="/assets/js/state.js"></script>
+    <header>
+    
+    <nav>
+        <a href="/" >/Home</a>
+        <a href="/writeups" class='active'>/Writeups</a>
+    </nav>
+</header>
+
+    <main>
+        <article>
+    <div class="article-metadata">
+        <span>
+            <p>Published by </p><address>w1zardess</address><p> on </p><time datetime="2025-04-23 00:00:00 +0000"> April 23, 2025 </time>
+        </span>
+        <a href="/writeups#DawgCTF 2025">Back to overview</a>
+    </div>
+    <h6>DawgCTF 2025/</h6>
+    <h1>Arrr Where's My Treasure</h1>
+    <ul class="tag-list">
+        
+            <li class="tag tag--type-web">web</li>
+        
+            <li class="tag tag--type-misc">misc</li>
+        
+    </ul>
+    <p>We are first presented by this map:</p>
+
+<p>It tells us that the treasure is likely hidden on <code class="language-plaintext highlighter-rouge">umbccd.net</code> (which we know is owned by the CTF organizers as they have reused this domain to host other challenges).</p>
+
+<p>Looking at the DNS records of <code class="language-plaintext highlighter-rouge">umbccd.net</code> we get this TXT record:</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="sh">"</span><span class="s">DawgCTF{</span><span class="sh">"</span>
+
+<span class="sh">"</span><span class="s">I52XEIDFOJTGOIDCOMQGYYTIMUQGOZLSNZTGQZLSEB3GMIDPNBSXM4TREBVHK4TFOIQGO5LSEB4HE4TDOJSSAYTTEBTXK4RAEJ5G4ZTHOJSWMIRAOBZGKZ3GEB4XM2LSMY======</span><span class="sh">"</span>
+
+<span class="sh">"</span><span class="s">QXJycnJfMV8=</span><span class="sh">"</span>
+
+<span class="sh">"</span><span class="s">V29haCB5b3UgcmVhbGl6ZWQgaXRzIEJhc2U2NCEgS2VlcCB0aGlzIGluIG1pbmQhISE=</span><span class="sh">"</span>
+
+<span class="sh">"</span><span class="s">eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJtZXNzYWdlIjoiVGhlIGtleSBpcyBVIiwiaWF0IjoxNzQ0NzY4Njc3fQ.</span><span class="sh">"</span>
+</code></pre></div></div>
+
+<p>As well as an MX record pointing to <code class="language-plaintext highlighter-rouge">masters.umbccd.net</code> and a LOC record pointing to a location in Havanna Cuba.</p>
+
+<p>The first string of the TXT matches the Flag prefix of DawgCTF. It is followed by a string that is encoded in Base32 and then rotated 13 letters (Rot13) and says: <code class="language-plaintext highlighter-rouge">The rest of your treasure is buried where the keeper of the "masters" certs lives</code>. Then we get <code class="language-plaintext highlighter-rouge">Arrrr_1_</code> by Base64 decoding the next part. This is likely the beginning of the flag. The next string is also Base64 and translates to: <code class="language-plaintext highlighter-rouge">Woah you realized its Base64! Keep this in mind!!!</code>. The last part is a JWT token that translates to:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"none"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"typ"</span><span class="p">:</span><span class="w"> </span><span class="s2">"JWT"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The key is U"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"iat"</span><span class="p">:</span><span class="w"> </span><span class="mi">1744768677</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Looking at the hint from the second string, talking about the masters cert, we dig for the CAA records on the previosly discovered <code class="language-plaintext highlighter-rouge">masters.umbccd.net.</code> subdomain. This reveals the next target: <code class="language-plaintext highlighter-rouge">applesause.net</code>.</p>
+
+<p>In the TXT records of <code class="language-plaintext highlighter-rouge">applesause.net</code> we see:</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="sh">"</span><span class="s">Arr, Here is some of my favorite quotes!</span><span class="sh">"</span>
+
+<span class="sh">"</span><span class="s">FYWS4LRAFUXCALJOFYXCALROFUQC4LROEAXC4LRNEAWS4LJOEAWS2LROEAXC2LROEAXC4LRNEAXC2LJOEAXC4LRNEAXC2LJAFUWS4LJAFYXC2LJNEAXC2LJOEAWS4LJAFYXC4LJAFYXC4LRAFYXC2LRAFYXCALROFUQC4LROEAWS2LROEAXC2LROEAXC4LRNEAWS4LROFYQC2LJOFUQC2LROFYWSALJOFYXC2IBNFYXC4LJAFUXC4LRN</span><span class="sh">"</span>
+
+<span class="sh">"</span><span class="s">History isnt behind us. Its beneath our feet, waiting to be uncovered.</span><span class="sh">"</span>
+
+<span class="sh">"</span><span class="s">Sometimes the past is the key to the future, you just have to know where to dig.</span><span class="sh">"</span>
+
+<span class="sh">"</span><span class="s">The past beats inside me like a second heart.</span><span class="sh">"</span>
+
+<span class="sh">"</span><span class="s">The past is a place of reference, not a place of residence.</span><span class="sh">"</span>
+
+<span class="sh">"</span><span class="s">Whats past is prologue.</span><span class="sh">"</span>
+
+<span class="sh">"</span><span class="s">You cant change the past, but you can learn from it.</span><span class="sh">"</span>
+</code></pre></div></div>
+
+<p>The unreadable part can be decoded using Base32, which reveals morse code. Decoding the morse code gives us a second Base32 encoded string which reads: <code class="language-plaintext highlighter-rouge">[CITY]_[COUNTRY]}</code>.</p>
+
+<p>City and country? We can find these in the LOC record on the <code class="language-plaintext highlighter-rouge">umbccd.net</code>domain.</p>
+
+<p>So far we have: <code class="language-plaintext highlighter-rouge">DawgCTF{Arrrr_1_Havana_Cuba}</code>.</p>
+
+<p>Clearly there is something missing in the middle.</p>
+
+<p>The quotes we got from the TXT records are all about the past and history. So we look at the <a href="https://dnshistory.org/historical-dns-records/txt/applesause.net">DNS history</a> of all three domains and we find that the TXT record of <code class="language-plaintext highlighter-rouge">applesause.net</code> once said: <code class="language-plaintext highlighter-rouge">OWQeZgohZQoDZGYhCg==</code>.
+This is Base64 encoded and XORed with the key <code class="language-plaintext highlighter-rouge">U</code> which we found as a JWT in the TXT record of <code class="language-plaintext highlighter-rouge">umbccd.net</code>. It is the last part of the flag: <code class="language-plaintext highlighter-rouge">l1K3_t0_V13t_</code>.</p>
+
+<p>Solved! The final flag is <code class="language-plaintext highlighter-rouge">DawgCTF{Arrrr_1_l1K3_t0_V13t_Havana_Cuba}</code>.</p>
+
+
+</article>
+
+    </main>
+    <footer>
+    © - BugBunnies
+</footer>
+
+    <script src="/assets/js/script.js"></script>
+</body>
+</html>
