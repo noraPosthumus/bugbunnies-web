@@ -429,7 +429,9 @@ function createBlip(x, y, angle, cardIndex) {
 }
 
 // Initialize the UI system when the script loads
-initializeUI();
+if (window.innerWidth > 600) {
+    initializeUI();
+}
 
 
 window.addEventListener('beforeunload', () => {

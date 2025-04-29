@@ -107,4 +107,12 @@
         opacity: 1 !important;
         transform: scale(1);
     }
+
+    @media only screen and (max-width: 600px) {
+        position: relative;
+        margin-bottom: 20px;
+        max-width: 80vw;
+        height: auto;
+        min-height: 170px;
+    }
 }
