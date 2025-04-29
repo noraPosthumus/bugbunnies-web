@@ -72,6 +72,7 @@ article {
     code {
         @include fonts.share-tech-mono-regular;
         color: themes.themed('primary-accent');
+        overflow-wrap: break-word;
 
         &::before, &::after {
             content: "`";
@@ -80,6 +81,8 @@ article {
 
     // Reset for multiline code blocks
     .highlight > code {
+        overflow-wrap: none;
+
         &::before, &::after {
             content: "";
         }
@@ -108,5 +111,23 @@ article {
     a {
         color: themes.themed('primary-foreground');
         text-decoration: underline;
+    }
+
+    @media only screen and (max-width: 1050px) {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        max-width: 100%;
+        height: min-content;
+        padding: 150px 30px;
+        overflow-y: hidden;
+
+        .article-metadata {
+            a {
+                display: none;
+            }
+        }
+    
     }
 }

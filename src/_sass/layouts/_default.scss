@@ -35,7 +35,7 @@ header {
 
         display: flex;
         gap: 100px;
-        padding-top: 50px;
+        padding-top: 40px;
 
         font-size: 1.2rem;
     
@@ -69,4 +69,10 @@ h1, h2, h3, h4, h5 {
     @include fonts.wendy-one-regular;
     color: themes.themed('primary-foreground');
     font-weight: bold;
+}
+
+@media only screen and (max-width: 600px) {
+    body {
+        grid-template-columns: [left-start] 0 [left-end center-start] auto [center-end right-start] 0 [right-end];
+    }
 }
