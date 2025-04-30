@@ -1,5 +1,5 @@
 ---
-title: "Arrr Where's My Treasure"
+title: "Arrr... I found your Treasure"
 author: w1zardess
 tags: ["web", "misc"]
 date: 2025-04-23
