@@ -34,12 +34,20 @@ header {
         @include fonts.share-tech-mono-regular;
 
         display: flex;
-        gap: 100px;
+        gap: min(8vw, 100px);
         padding-top: 40px;
 
         font-size: 1.2rem;
     
         a {
+            &:first-child {
+                height: 100%;
+                color: themes.themed('primary-foreground');
+                width: 100px;
+                margin-top: -15px;
+                justify-self: start;
+            }
+            justify-self: end;
             color: themes.themed('primary-accent');
             text-decoration: none;
             &.active {
@@ -74,5 +82,9 @@ h1, h2, h3, h4, h5 {
 @media only screen and (max-width: 600px) {
     body {
         grid-template-columns: [left-start] 0 [left-end center-start] auto [center-end right-start] 0 [right-end];
+    }
+
+    header {
+        grid-template-columns: auto 0 auto;
     }
 }
