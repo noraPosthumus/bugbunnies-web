@@ -5,13 +5,19 @@ tags: ["web", "misc"]
 date: 2025-04-23
 ---
 
-We are first presented by this map:
+## Treasure Map
 
+We're first presented with this map:
 
-It tells us that the treasure is likely hidden on `umbccd.net` (which we know is owned by the CTF organizers as they have reused this domain to host other challenges).
+![Treasure Map](/assets/images/dawg/map.png)
 
-Looking at the DNS records of `umbccd.net` we get this TXT record:
+It tells us the treasure is likely hidden on `umbccd.net`, a domain we recognize from other challenges — clearly owned by the CTF organizers.
 
+## Where to Look?
+
+Opening `umbccd.net` in a browser doesn't get us far — there’s no HTTP server running. But we probably aren’t meant to brute-force ports, or directories on a random domain unless told otherwise. The real treasure must lie elsewhere.
+
+So we turn to the DNS records. And sure enough, we strike gold in the `TXT` record:
 ```py
 "DawgCTF{"
 
@@ -24,10 +30,22 @@ Looking at the DNS records of `umbccd.net` we get this TXT record:
 "eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJtZXNzYWdlIjoiVGhlIGtleSBpcyBVIiwiaWF0IjoxNzQ0NzY4Njc3fQ."
 ```
 
-As well as an MX record pointing to `masters.umbccd.net` and a LOC record pointing to a location in Havanna Cuba.
+We also notice:
 
-The first string of the TXT matches the Flag prefix of DawgCTF. It is followed by a string that is encoded in Base32 and then rotated 13 letters (Rot13) and says: `The rest of your treasure is buried where the keeper of the "masters" certs lives`. Then we get `Arrrr_1_` by Base64 decoding the next part. This is likely the beginning of the flag. The next string is also Base64 and translates to: `Woah you realized its Base64! Keep this in mind!!!`. The last part is a JWT token that translates to:
+- An `MX` record pointing to `masters.umbccd.net`
+- A `LOC` record placing the domain in Havana, Cuba
 
+## Sailing after the clues
+
+Let’s break the `TXT` record down, piece by piece:
+- `DawgCTF{` — The flag prefix. We're definitely on the right track.
+- A long Base32 string — After decoding and shifting each letter in the alphabet by 13 (ROT13), we get:
+    "The rest of your treasure is buried where the keeper of the 'masters' certs lives."
+- `QXJycnJfMV8=` — Base64 decoding gives us Arrrr_1_, possibly the start of the flags content.
+- Another Base64 string — Decodes to:
+    "Woah you realized it's Base64! Keep this in mind!!!"
+    Clearly a hint for later.
+- A JWT token — When decoded, we get:
 ```json
 {
   "alg": "none",
@@ -39,9 +57,11 @@ The first string of the TXT matches the Flag prefix of DawgCTF. It is followed b
 }
 ```
 
-Looking at the hint from the second string, talking about the masters cert, we dig for the CAA records on the previosly discovered `masters.umbccd.net.` subdomain. This reveals the next target: `applesause.net`.
+## Digging deeper
 
-In the TXT records of `applesause.net` we see:
+Taking the hint from the earlier message ("where the keeper of the masters certs lives"), we investigate the CAA records of `masters.umbccd.net`. Wich leads us to a new domain: `applesause.net`.
+
+Querying the `TXT` records of `applesause.net` returns this:
 
 ```py
 "Arr, Here is some of my favorite quotes!"
@@ -61,16 +81,25 @@ In the TXT records of `applesause.net` we see:
 "You cant change the past, but you can learn from it."
 ```
 
-The unreadable part can be decoded using Base32, which reveals morse code. Decoding the morse code gives us a second Base32 encoded string which reads: `[CITY]_[COUNTRY]}`.
+That long encoded string? It’s Base32-encoded morse code. Decode it and you'll get another Base32 string, which finally decodes to: `[CITY]_[COUNTRY]}`
 
-City and country? We can find these in the LOC record on the `umbccd.net`domain.
+City and country? We can find these in the `LOC` record on the `umbccd.net` domain.
 
 So far we have: `DawgCTF{Arrrr_1_Havana_Cuba}`.
 
-Clearly there is something missing in the middle.
+But something’s still missing in the middle.
 
-The quotes we got from the TXT records are all about the past and history. So we look at the [DNS history](https://dnshistory.org/historical-dns-records/txt/applesause.net) of all three domains and we find that the TXT record of `applesause.net` once said: `OWQeZgohZQoDZGYhCg==`.
-This is Base64 encoded and XORed with the key `U` which we found as a JWT in the TXT record of `umbccd.net`. It is the last part of the flag: `l1K3_t0_V13t_`.
+## Learning from the past
 
-Solved! The final flag is `DawgCTF{Arrrr_1_l1K3_t0_V13t_Havana_Cuba}`.
+All those quotes about the past? They’re not just filler. They're telling us to look back in time.
+
+Using DNSHistory.org, we check the historical `TXT` records for all three domains.
+
+There it is:
+`OWQeZgohZQoDZGYhCg==`
+This Base64-encoded string used to be in `applesause.net`'s `TXT` record.
+
+But what is it? Base64 decoding alone doesn't produce anything human readable. Wait — have we tried XORing it with the key `U` (that we found earlier in the JWT token)? Indeed this is the correct approach and it leads to this: `l1K3_t0_V13t_`.
+
+Piecing it all together, we finally dug up the treasure: `DawgCTF{Arrrr_1_l1K3_t0_V13t_Havana_Cuba}`.
 

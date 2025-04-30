@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Monda:wght@400..700&family=Share+Tech+Mono&family=Wendy+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/style.css">
-    <title>My Brain rotted reading this Dictionary</title>
+    <title>I caught a bad case of Brainrot after reading this Dictionary</title>
 </head>
 <body>
     <script src="/assets/js/state.js"></script>
@@ -46,21 +46,18 @@
         <a href="/writeups#UMD CTF 2025">Back to overview</a>
     </div>
     <h6>UMD CTF 2025/</h6>
-    <h1>My Brain rotted reading this Dictionary</h1>
+    <h1>I caught a bad case of Brainrot after reading this Dictionary</h1>
     <ul class="tag-list">
         
             <li class="tag tag--type-web">web</li>
         
     </ul>
-    <p>The challenge first leads us to a Website that appears to be a dictionary for gen-alpha/brainrot slang. The websites allows to upload custom dictionaries as well. Lucky for us we are also provided the source code of the website.</p>
+    <h2 id="challenge-overview">Challenge Overview</h2>
 
-<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># ...
-</span>
-<span class="n">app</span> <span class="o">=</span> <span class="nc">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
-<span class="n">app</span><span class="p">.</span><span class="n">secret_key</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="nf">urandom</span><span class="p">(</span><span class="mi">32</span><span class="p">)</span>
-<span class="n">app</span><span class="p">.</span><span class="n">config</span><span class="p">[</span><span class="sh">'</span><span class="s">MAX_CONTENT_LENGTH</span><span class="sh">'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1000</span>
+<p>The challenge first leads us to a website that appears to be a dictionary for Gen-Alpha/brainrot slang. It also allows uploading custom dictionaries.</p>
 
-<span class="c1"># Directory to save uploaded files and images
+<p>Luckily for us, we are provided with the source code of the website:</p>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#...
 </span><span class="n">UPLOAD_FOLDER</span> <span class="o">=</span> <span class="sh">'</span><span class="s">uploads</span><span class="sh">'</span>
 
 <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="nf">exists</span><span class="p">(</span><span class="n">UPLOAD_FOLDER</span><span class="p">):</span>
@@ -104,17 +101,20 @@
     <span class="n">cmd</span> <span class="o">=</span> <span class="sa">f</span><span class="sh">"</span><span class="s">find </span><span class="si">{</span><span class="n">session</span><span class="p">[</span><span class="sh">'</span><span class="s">upload_dir</span><span class="sh">'</span><span class="p">]</span><span class="si">}</span><span class="s"> -name </span><span class="se">\\</span><span class="s">*.brainrot | xargs sort | uniq</span><span class="sh">"</span>
     <span class="n">results</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="nf">popen</span><span class="p">(</span><span class="n">cmd</span><span class="p">).</span><span class="nf">read</span><span class="p">()</span>
     <span class="k">return</span> <span class="nf">render_template</span><span class="p">(</span><span class="sh">'</span><span class="s">dict.html</span><span class="sh">'</span><span class="p">,</span> <span class="n">results</span><span class="o">=</span><span class="n">results</span><span class="p">.</span><span class="nf">splitlines</span><span class="p">())</span>
+<span class="c1">#...
+</span></code></pre></div></div>
 
+<h2 id="taking-a-closer-look">Taking a closer look</h2>
 
+<p>We can immediately tell that the bulk of the code is dedicated to handling custom dictionary uploads. It is therefore likely that this feature can be exploited.</p>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="sh">'</span><span class="s">__main__</span><span class="sh">'</span><span class="p">:</span>
-    <span class="n">app</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="sh">"</span><span class="s">0.0.0.0</span><span class="sh">"</span><span class="p">)</span>
+<p>On line 25, we can see that a file named <code class="language-plaintext highlighter-rouge">flag.txt</code> is copied into our upload directory. That’s probably what we need to extract.</p>
 
-</code></pre></div></div>
+<p>Toward the bottom of the code (on line 54), we see that a concatenation of shell commands is used to read the dictionary entries.</p>
 
-<p>We can immidiately tell that the largest portion of the code is dedicated to handling custom dictionary uploads. It is therefore likely that this feature can be exploited.</p>
+<h2 id="exploiting-the-file-uplaod">Exploiting the file uplaod</h2>
 
-<p>On line 25 we can see that a file named <code class="language-plaintext highlighter-rouge">flag.txt</code> is copied into our upload directory. That’s probably what we need to extract. Towards the bottom of the code (on line 54) we see that a concatenation of cmd commands are used to read the dictionary entries. Looking at the manual pages for the <code class="language-plaintext highlighter-rouge">xargs</code> command it mentions that filenames with spaces are incorrectly handled if the <code class="language-plaintext highlighter-rouge">-0</code> option is not provided. We can exploit this by uploading a file with a space in the filename like this: <code class="language-plaintext highlighter-rouge">flag.txt basedict.brainrot</code>. Now xargs treats this as two seperate filenames and forwards both flag.txt and basedict.brainrot to sort and then finally to uniq. After uploading the file with the malicous filename we can see the flag listed as a dictionary item.</p>
+<p>Looking at the man-pages of one of the commands, <code class="language-plaintext highlighter-rouge">xargs</code>, it mentions that filenames with spaces are incorrectly handled if the <code class="language-plaintext highlighter-rouge">-0</code> option is not provided. This opens up an interesting opportunity for exploitation: by uploading a file with a space in the filename, like <code class="language-plaintext highlighter-rouge">flag.txt%20basedict.brainrot</code> (<code class="language-plaintext highlighter-rouge">%20</code> gets URL-decoded to a space by the unquote function) it gets interpreted as two seperate files so xargs forwards both <code class="language-plaintext highlighter-rouge">flag.txt</code> and <code class="language-plaintext highlighter-rouge">basedict.brainrot</code> as arguments to <code class="language-plaintext highlighter-rouge">sort</code> and then to <code class="language-plaintext highlighter-rouge">uniq</code>. After uploading the file with the malicious filename, we can see the flag listed as a dictionary entry.</p>
 
 </article>
 

@@ -54,7 +54,7 @@
             <li class="tag tag--type-crypto">crypto</li>
         
     </ul>
-    <p>Challenge:</p>
+    <h2 id="challenge">Challenge:</h2>
 
 <blockquote>
   <p>can u help Alice find her seeds in the bin? She’s pretty sure the bin hasn’t been dumped since it was generated.</p>
@@ -62,10 +62,11 @@
 
 <p>Two files are provided:</p>
 <ul>
-  <li>secret.bin (the secret message to decrypt)</li>
-  <li>secret.py (includes the script used to generate secret.bin)</li>
+  <li>secret.bin — this holds the encrypted message</li>
+  <li>secret.py — the script that created it</li>
 </ul>
 
+<p>Here’s a look at secret.py:</p>
 <div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">random</span>
 <span class="kn">import</span> <span class="n">time</span>
 
@@ -80,10 +81,57 @@
     <span class="n">f</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p>We can see that the message is encrypted by XORing each byte with a randomly generated number. The random numbers are generated with a time based seed. Because the time is casted to <code class="language-plaintext highlighter-rouge">int</code> there is only a limited amount of possible seeds, especially as we can assume the message was encrypted recently. I wrote this script to brute force seeds until the message made sense.</p>
+<p>So, what’s happening here?</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<p>The plaintext (which is the flag) is encrypted by XORing it byte-by-byte with a keystream of random bytes. These random bytes are generated using Python’s <code class="language-plaintext highlighter-rouge">random</code>-module, which is used with a seed — in this case, the current unix timestamp (as an integer).</p>
+
+<p>Since the seed is based on <code class="language-plaintext highlighter-rouge">int(time.time())</code>, it only changes once per second. That means there’s a small window of possible values — especially if we assume this file was generated recently. Even better, <code class="language-plaintext highlighter-rouge">time.time()</code> is predictable and linear, so we can brute-force seeds by trying different timestamps.</p>
+
+<h2 id="our-attack-plan">Our attack plan:</h2>
+
+<ul>
+  <li>
+    <p>Guess a time close to when secret.bin was created.</p>
+  </li>
+  <li>
+    <p>For each possible second (seed), generate the keystream.</p>
+  </li>
+  <li>
+    <p>XOR the keystream with the ciphertext.</p>
+  </li>
+  <li>
+    <p>Check if the result looks like a valid flag.</p>
+  </li>
+</ul>
+
+<h2 id="implementation">Implementation</h2>
+
+<p>Here’s the brute-force script I wrote to do just that:</p>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">random</span>
+<span class="kn">import</span> <span class="n">base64</span>
+<span class="kn">import</span> <span class="n">time</span>
+
+<span class="n">plaintext</span> <span class="o">=</span> <span class="sh">""</span>
+<span class="n">try_time</span> <span class="o">=</span> <span class="mi">1744600040</span>
+
+<span class="k">while</span> <span class="ow">not</span> <span class="n">plaintext</span><span class="p">.</span><span class="nf">startswith</span><span class="p">(</span><span class="sh">"</span><span class="s">UMDCTF{</span><span class="sh">"</span><span class="p">)</span> <span class="ow">and</span> <span class="n">try_time</span> <span class="o">&lt;</span> <span class="n">time</span><span class="p">.</span><span class="nf">time</span><span class="p">():</span>
+
+    <span class="n">seed</span> <span class="o">=</span> <span class="nf">int</span><span class="p">(</span><span class="n">try_time</span><span class="p">)</span>
+    <span class="n">random</span><span class="p">.</span><span class="nf">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+
+    <span class="n">ciphertext</span> <span class="o">=</span> <span class="n">base64</span><span class="p">.</span><span class="nf">b64decode</span><span class="p">(</span><span class="sh">"</span><span class="s">EEeot8r8yDf8nXGyvyndCCEjYQY8Cv8a80XO3D0wAOE3Kw==</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># this is the secret.bin as base64
+</span>    <span class="n">keystream</span> <span class="o">=</span> <span class="nf">bytes</span><span class="p">([</span><span class="n">random</span><span class="p">.</span><span class="nf">getrandbits</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">))])</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">plaintext</span> <span class="o">=</span> <span class="nf">bytes</span><span class="p">([</span><span class="n">p</span> <span class="o">^</span> <span class="n">k</span> <span class="k">for</span> <span class="n">p</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="nf">zip</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">,</span> <span class="n">keystream</span><span class="p">)]).</span><span class="nf">decode</span><span class="p">()</span>
+    <span class="k">except</span> <span class="nb">UnicodeDecodeError</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">try_time</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="n">plaintext</span><span class="p">)</span>
 </code></pre></div></div>
+
+<p>This script starts at a guessed timestamp and moves forward in time, one second at a time, generating possible seeds until the output starts with <code class="language-plaintext highlighter-rouge">UMDCTF{</code>. Once we hit that, we know we’ve found the seeds and successfully decrypted the message.</p>
 
 </article>
 
