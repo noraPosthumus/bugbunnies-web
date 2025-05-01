@@ -2,7 +2,7 @@
 title: "How I found the Seeds"
 author: w1zardess
 tags: ["misc", "crypto"]
-date: 2025-04-30
+date: 2025-05-01
 ---
 
 ## Challenge:

@@ -79,6 +79,17 @@ h1, h2, h3, h4, h5 {
     font-weight: bold;
 }
 
+blockquote{ 
+    padding: 0 15px;
+
+    & > p {
+        &::before {
+            content: '> ';
+        }
+        color: themes.themed('primary-accent');
+    }
+}
+
 @media only screen and (max-width: 600px) {
     body {
         grid-template-columns: [left-start] 0 [left-end center-start] auto [center-end right-start] 0 [right-end];

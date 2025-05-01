@@ -1,8 +1,8 @@
 ---
-title: "I caught a bad case of Brainrot after reading this Dictionary"
+title: "I caught a bad case of Brainrot after using this Dictionary"
 author: w1zardess
 tags: ["web"]
-date: 2025-04-30
+date: 2025-05-01
 ---
 
 ## Challenge Overview
@@ -68,4 +68,8 @@ Toward the bottom of the code (on line 54), we see that a concatenation of shell
 
 ## Exploiting the file uplaod
 
-Looking at the man-pages of one of the commands, `xargs`, it mentions that filenames with spaces are incorrectly handled if the `-0` option is not provided. This opens up an interesting opportunity for exploitation: by uploading a file with a space in the filename, like `flag.txt%20basedict.brainrot` (`%20` gets URL-decoded to a space by the unquote function) it gets interpreted as two seperate files so xargs forwards both `flag.txt` and `basedict.brainrot` as arguments to `sort` and then to `uniq`. After uploading the file with the malicious filename, we can see the flag listed as a dictionary entry.
+Looking at the man-pages of one of the commands, `xargs`, it mentions that filenames with spaces are incorrectly handled if the `-0` option is not provided. This opens up an interesting opportunity for exploitation:
+
+by uploading a file with a space in the filename, like `flag.txt%20basedict.brainrot` (`%20` gets URL-decoded to a space by the unquote function) it gets interpreted as two seperate files. Xargs then forwards both `flag.txt` and `basedict.brainrot` as arguments to `sort` and then to `uniq`.
+
+After uploading the file with the malicious filename, we can see the flag listed as a dictionary entry.

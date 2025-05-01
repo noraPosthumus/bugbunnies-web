@@ -3,6 +3,21 @@ title: BugBunnies - Team
 ---
 
 <div id="team-member-list">
+    <div class="info-card" id="js_info-card">
+        <h3 class="info-card__title">
+            Info
+        </h3>
+        <p class="info-card__content">
+            <h4>Team Bug Bunnies</h4>
+            Together we regularly participate in CTF events. On this,
+            our website, we publish what we hope are beginner friendly and entertaining write-ups.
+        </p>
+        <p>
+            As passionate students of the University of Applied Science of Eastern Switzerland OST,
+            we aim to inspire people from all backgrounds to join our hobby and enjoy the intricacies of offensive cyber security.
+        </p>
+        <a href="/writeups" class="info-card__button">> Read our write-ups</a>
+    </div>
     {% for team_member in site.team_members %}
     <div class="card">
         <h3 class="card__title">
@@ -12,7 +27,7 @@ title: BugBunnies - Team
             {{ team_member.content | markdownify | strip_html }}
         </p>
         <a href="/writeups#{{ team_member.name }}" class="card__button">> Read {{ team_member.pronouns.genetive }}
-            Writeups</a>
+            write-ups</a>
     </div>
     {% endfor %}
 </div>

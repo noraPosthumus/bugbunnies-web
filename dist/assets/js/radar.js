@@ -10,6 +10,7 @@ let localUIState = getUIState();
 // Global references
 let securityRadarSvg, securityLog;
 let securityRadar, draggableSecurityRadar;
+let infoCard, draggableInfoCard;
 let cards, draggableCards;
 let blips = [];
 let nextLogId = 1;
@@ -103,6 +104,10 @@ function initializeUI() {
     const radarElements = initializeSecurityRadar();
     securityRadar = radarElements.securityRadar;
     draggableSecurityRadar = radarElements.draggableSecurityRadar;
+
+    const infoCardElements = initializeInfoCard();
+    infoCard = infoCardElements.infoCard;
+    draggableInfoCard = infoCardElements.draggableInfoCard;
     
     const alertElements = initializeAlerts(localUIState?.animationState?.cardPositions);
     cards = alertElements.cards;
@@ -112,7 +117,7 @@ function initializeUI() {
     extractCardColors();
     
     // Configure z-index management for all windows
-    const allWindows = [draggableSecurityRadar, ...draggableCards];
+    const allWindows = [draggableSecurityRadar, draggableInfoCard, ...draggableCards];
     allWindows.forEach(window => {
         window.onDragStart = () => reorderZIndex(window, allWindows);
     });
@@ -315,6 +320,24 @@ function initializeSecurityRadar() {
     return {securityRadar, draggableSecurityRadar};
 }
 
+function initializeInfoCard() {
+    const infoCard = document.getElementById('js_info-card');
+    const draggableInfoCard = makeDraggable(infoCard);
+
+    draggableInfoCard.left = 
+    localUIState?.animationState?.infoCardPosition?.left || 
+    250;
+
+    draggableInfoCard.top = 
+    localUIState?.animationState?.infoCardPosition?.top || 
+    250;
+
+    infoCard.style.zIndex = 
+    localUIState?.animationState?.infoCardPosition?.zIndex || 1;
+
+    return {infoCard, draggableInfoCard};
+}
+
 /**
  * Manage z-index when elements are clicked/dragged to bring to front
  * @param {Object} newActive - Element being activated
@@ -390,7 +413,7 @@ function initializeAlerts(positions = []) {
             // Center card on position
             card.left = x - (card.offsetWidth || 215) / 2;
             card.top = y - (card.offsetHeight || 85) / 2;
-            card.element.style.zIndex = i + 1;
+            card.element.style.zIndex = i + 2;
         } else {
             // Use saved positions
             card.left = positions[i].x;
@@ -449,7 +472,15 @@ window.addEventListener('beforeunload', () => {
         "securityRadarPosition": { 
             top: draggableSecurityRadar.top, 
             left: draggableSecurityRadar.left, 
-            zIndex: parseInt(securityRadar.style.zIndex) || 4 
+            zIndex: parseInt(securityRadar.style.zIndex) || 0 
+        }
+    });
+
+    updateUIState("animationState", { 
+        "infoCardPosition": { 
+            top: infoCard.top, 
+            left: draggableInfoCard.left, 
+            zIndex: parseInt(infoCard.style.zIndex) || 1 
         }
     });
 });

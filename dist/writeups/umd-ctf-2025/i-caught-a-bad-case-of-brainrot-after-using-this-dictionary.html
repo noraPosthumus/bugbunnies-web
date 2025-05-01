@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Monda:wght@400..700&family=Share+Tech+Mono&family=Wendy+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/style.css">
-    <title>I caught a bad case of Brainrot after reading this Dictionary</title>
+    <title>I caught a bad case of Brainrot after using this Dictionary</title>
 </head>
 <body>
     <script src="/assets/js/state.js"></script>
@@ -32,7 +32,7 @@
            </svg>
         </a>
         <a href="/" >/Home</a>
-        <a href="/writeups" class='active'>/Writeups</a>
+        <a href="/writeups" class='active'>/Write-Ups</a>
     </nav>
 
 </header>
@@ -41,12 +41,12 @@
         <article>
     <div class="article-metadata">
         <span>
-            <p>Published by </p><address>w1zardess</address><p> on </p><time datetime="2025-04-30 00:00:00 +0000"> April 30, 2025 </time>
+            <p>Published by </p><address>w1zardess</address><p> on </p><time datetime="2025-05-01 00:00:00 +0000"> May 1, 2025 </time>
         </span>
         <a href="/writeups#UMD CTF 2025">Back to overview</a>
     </div>
     <h6>UMD CTF 2025/</h6>
-    <h1>I caught a bad case of Brainrot after reading this Dictionary</h1>
+    <h1>I caught a bad case of Brainrot after using this Dictionary</h1>
     <ul class="tag-list">
         
             <li class="tag tag--type-web">web</li>
@@ -114,13 +114,17 @@
 
 <h2 id="exploiting-the-file-uplaod">Exploiting the file uplaod</h2>
 
-<p>Looking at the man-pages of one of the commands, <code class="language-plaintext highlighter-rouge">xargs</code>, it mentions that filenames with spaces are incorrectly handled if the <code class="language-plaintext highlighter-rouge">-0</code> option is not provided. This opens up an interesting opportunity for exploitation: by uploading a file with a space in the filename, like <code class="language-plaintext highlighter-rouge">flag.txt%20basedict.brainrot</code> (<code class="language-plaintext highlighter-rouge">%20</code> gets URL-decoded to a space by the unquote function) it gets interpreted as two seperate files so xargs forwards both <code class="language-plaintext highlighter-rouge">flag.txt</code> and <code class="language-plaintext highlighter-rouge">basedict.brainrot</code> as arguments to <code class="language-plaintext highlighter-rouge">sort</code> and then to <code class="language-plaintext highlighter-rouge">uniq</code>. After uploading the file with the malicious filename, we can see the flag listed as a dictionary entry.</p>
+<p>Looking at the man-pages of one of the commands, <code class="language-plaintext highlighter-rouge">xargs</code>, it mentions that filenames with spaces are incorrectly handled if the <code class="language-plaintext highlighter-rouge">-0</code> option is not provided. This opens up an interesting opportunity for exploitation:</p>
+
+<p>by uploading a file with a space in the filename, like <code class="language-plaintext highlighter-rouge">flag.txt%20basedict.brainrot</code> (<code class="language-plaintext highlighter-rouge">%20</code> gets URL-decoded to a space by the unquote function) it gets interpreted as two seperate files. Xargs then forwards both <code class="language-plaintext highlighter-rouge">flag.txt</code> and <code class="language-plaintext highlighter-rouge">basedict.brainrot</code> as arguments to <code class="language-plaintext highlighter-rouge">sort</code> and then to <code class="language-plaintext highlighter-rouge">uniq</code>.</p>
+
+<p>After uploading the file with the malicious filename, we can see the flag listed as a dictionary entry.</p>
 
 </article>
 
     </main>
     <footer>
-    © - BugBunnies
+    © - 2025 BugBunnies
 </footer>
 
     <script src="/assets/js/script.js"></script>

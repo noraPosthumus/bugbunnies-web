@@ -1,0 +1,44 @@
+@use 'themes' as themes;
+@use 'third_party/google/fonts' as fonts;
+@use 'third_party/zetorama/encodecolor' as encodecolor;
+
+.info-card { 
+    @include themes.border;
+    @include themes.shadow;
+
+    background-color: themes.themed('primary-accent');
+    width: 450px;
+    height: 350px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 20px;
+    padding-left: 10px;
+
+    position: relative;
+
+    transition: opacity 0.4s ease, transform 0.1s ease;
+
+    & h3 {
+        position: absolute;
+        margin-top: -22px;
+        left: 10px;
+        color: themes.themed('primary-foreground');
+        font-size: 1.4rem;
+        text-shadow: 2px 0 #fff, -2px 0 #fff, 0 2px #fff, 0 -2px #fff,
+        1px 1px #fff, -1px -1px #fff, 1px -1px #fff, -1px 1px #fff;
+    }
+
+    @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateX(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+    }
+}

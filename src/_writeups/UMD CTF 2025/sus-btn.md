@@ -2,7 +2,7 @@
 title: "This Button is increadibly Sus"
 author: w1zardess
 tags: ["misc"]
-date: 2025-04-30
+date: 2025-05-01
 ---
 
 ## Challenge
@@ -77,7 +77,7 @@ var lx = s.ll[0]+s.ll[s.l(2,2)]+s.ll[s.l(s.l(2,2),s.l(2,2))]+s.ll[321-309];
 console.log(lx)
 ```
 
-This confirms the line `var f = e[lx];` resolves to `f = executable["exec"];`.
+This confirms the line `var f = e[lx];` resolves to `var f = executable["exec"];`.
 
 To prevent anything malicious from executing, I patched this line to:
 
